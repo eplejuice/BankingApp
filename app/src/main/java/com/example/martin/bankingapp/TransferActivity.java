@@ -1,17 +1,20 @@
 package com.example.martin.bankingapp;
 
-import android.support.v7.app.AppCompatActivity;
+import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.view.View;
-import android.content.Intent;
 import android.widget.TextView;
+
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class TransferActivity extends AppCompatActivity {
@@ -38,7 +41,7 @@ public class TransferActivity extends AppCompatActivity {
         final EditText txt_amount = findViewById(R.id.txt_amount);
 
         final Intent i = getIntent();
-        final int valueAsInt = i.getIntExtra(MainActivity.TRANSFER_NAME, 0);
+        final int valueAsInt = i.getIntExtra(MainActivity.TRANSFER_OBJECT, 0);
 
 
         txt_amount.addTextChangedListener(new TextWatcher() {
@@ -84,7 +87,11 @@ public class TransferActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final Intent sendBack = new Intent();
                 final Bundle bundle = new Bundle();
-                bundle.putInt(MainActivity.RESPONSE, afterSubtraction);
+                bundle.putInt(MainActivity.TRANSFER_NOWBALANCE, afterSubtraction);
+                bundle.putString(MainActivity.TRANSFER_AMOUNT, Integer.toString(amount));
+                bundle.putString(MainActivity.TRANSFER_NAME, friend);
+                Date timestamp = Calendar.getInstance().getTime();
+                bundle.putString(MainActivity.TRANSFER_TIME, timestamp.toString()  );
                 sendBack.putExtras(bundle);
                 setResult(RESULT_OK, sendBack);
                 finish();

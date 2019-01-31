@@ -10,17 +10,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String TRANSFER_NAME = "name";
+    public static final String TRANSFER_OBJECT = "obj";
     public static final int RESULT_CODE_TRANSFER = 0;
-    public static final String RESPONSE = "main_activity_response";
+    public static final String TRANSFER_NOWBALANCE = "now_balance";
+    public static final String TRANSFER_AMOUNT = "amount";
+    public static final String TRANSFER_NAME = "name";
+    public static final String TRANSFER_TIME = "time";
+    public static final String ARRAY_LIST = "arr";
     public static int balance;
     private TextView lbl_balance;
 
-    public class transactionData {
+    public class transactionData implements Serializable {
         String time;
         String name;
         String amount;
@@ -54,7 +59,11 @@ public class MainActivity extends AppCompatActivity {
         btn_transactions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //*//
+                final Intent startTransactions = new Intent(MainActivity.this, TransferActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(ARRAY_LIST, transactions);
+                startTransactions.putExtras(bundle);
+                startActivity(startTransactions);
             }
         });
 
@@ -64,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final Intent startTransfer = new Intent(MainActivity.this, TransferActivity.class);
                 final int balance = Integer.parseInt(lbl_balance.getText().toString());
-                startTransfer.putExtra(TRANSFER_NAME, balance);
+                startTransfer.putExtra(TRANSFER_OBJECT, balance);
                 startActivityForResult(startTransfer, RESULT_CODE_TRANSFER);
 
             }
@@ -76,9 +85,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RESULT_CODE_TRANSFER) {
             if (resultCode == RESULT_OK) { // user has not pressed Back Button
-                final int i = data.getIntExtra(RESPONSE, 0);
+                final int i = data.getIntExtra(TRANSFER_NOWBALANCE, 0);
                 lbl_balance.setText(Integer.toString(i));
 
+                transactionData t = new transactionData(data.getStringExtra(TRANSFER_TIME), data.getStringExtra(TRANSFER_NAME), data.getStringExtra(TRANSFER_AMOUNT), Integer.toString(i));
+                transactions.add(t);
             }
         }
     }
