@@ -1,16 +1,13 @@
 package com.example.martin.bankingapp;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -25,22 +22,6 @@ public class MainActivity extends AppCompatActivity {
     public static int balance;
     private TextView lbl_balance;
 
-    public class transactionData implements Serializable {
-        String time;
-        String name;
-        String amount;
-        String nowBalance;
-
-        public transactionData(String t, String n, String a, String nb){
-            time= t;
-            name = n;
-            amount = a;
-            nowBalance = nb;
-        }
-        public void writeInfo() {
-            Log.d("OUTPUT", time + name + amount + nowBalance);
-        }
-    }
 
     ArrayList<transactionData> transactions = new ArrayList<>();
 
@@ -59,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         btn_transactions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Intent startTransactions = new Intent(MainActivity.this, TransferActivity.class);
+                final Intent startTransactions = new Intent(MainActivity.this, TransactionsActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(ARRAY_LIST, transactions);
                 startTransactions.putExtras(bundle);
