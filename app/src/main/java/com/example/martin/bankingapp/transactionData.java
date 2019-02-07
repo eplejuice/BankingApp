@@ -14,12 +14,7 @@ public class transactionData extends AppCompatActivity implements Serializable {
 
     @Override
     public String toString() {
-        return "transactionData{" +
-                "time='" + time + '\'' +
-                ", name='" + name + '\'' +
-                ", amount='" + amount + '\'' +
-                ", nowBalance='" + nowBalance + '\'' +
-                '}';
+        return time  + "     |     "   + name + "     |     " +  amount + "     |     " + nowBalance + "\n\n\n";
     }
 
     public String nowBalance;

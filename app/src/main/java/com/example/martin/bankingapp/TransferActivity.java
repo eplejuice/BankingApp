@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -77,7 +78,6 @@ public class TransferActivity extends AppCompatActivity {
                    lbl_amount_check.setVisibility(View.INVISIBLE);
                    btn_pay.setEnabled(false);
                }
-                friend = dropdown.getSelectedItem().toString();
 
             }
         });
@@ -85,13 +85,14 @@ public class TransferActivity extends AppCompatActivity {
             btn_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                friend = dropdown.getSelectedItem().toString();
+                String timeStamp = new SimpleDateFormat("HH.mm.ss").format(new Date());
                 final Intent sendBack = new Intent();
                 final Bundle bundle = new Bundle();
                 bundle.putInt(MainActivity.TRANSFER_NOWBALANCE, afterSubtraction);
                 bundle.putString(MainActivity.TRANSFER_AMOUNT, Integer.toString(amount));
                 bundle.putString(MainActivity.TRANSFER_NAME, friend);
-                Date timestamp = Calendar.getInstance().getTime();
-                bundle.putString(MainActivity.TRANSFER_TIME, timestamp.toString()  );
+                bundle.putString(MainActivity.TRANSFER_TIME, timeStamp);
                 sendBack.putExtras(bundle);
                 setResult(RESULT_OK, sendBack);
                 finish();
