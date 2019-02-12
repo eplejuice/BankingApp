@@ -66,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RESULT_CODE_TRANSFER) {
             if (resultCode == RESULT_OK) { // user has not pressed Back Button
-                final int i = data.getIntExtra(TRANSFER_NOWBALANCE, 0);
-                lbl_balance.setText(Integer.toString(i));
+                final float i = data.getFloatExtra(TRANSFER_NOWBALANCE, 0);
+                lbl_balance.setText(Float.toString(i));
 
-                transactionData t = new transactionData(data.getStringExtra(TRANSFER_TIME), data.getStringExtra(TRANSFER_NAME), data.getStringExtra(TRANSFER_AMOUNT), Integer.toString(i));
+                transactionData t = new transactionData(data.getStringExtra(TRANSFER_TIME), data.getStringExtra(TRANSFER_NAME), data.getStringExtra(TRANSFER_AMOUNT), Float.toString(i));
                 transactions.add(t);
             }
         }

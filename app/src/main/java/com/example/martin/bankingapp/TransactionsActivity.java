@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.view.View;
+
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -36,7 +38,21 @@ public class TransactionsActivity<transactionData> extends AppCompatActivity {
         printOut.add(transactions.toString().replace(",", "").replace("[","").replace("]","").trim());
 
         adapter = new RecyclerAdapter(printOut);
+
+        adapter.setOnItemClickListener(new RecyclerAdapter.ClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                Log.d("onItemClick", Integer.toString(position));
+            }
+
+            @Override
+            public void onItemLongClick(int position, View v) {
+                Log.d("onItemLongClick", Integer.toString(position));
+            }
+        });
         rw.setHasFixedSize(true);
         rw.setAdapter(adapter);
+
+
     }
 }

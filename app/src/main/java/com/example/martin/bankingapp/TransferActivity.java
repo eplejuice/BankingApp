@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,7 +21,7 @@ import java.util.Date;
 
 public class TransferActivity extends AppCompatActivity {
     int amount;
-    private int afterSubtraction;
+    private float afterSubtraction;
     String friend;
     public static final String RETURN_INT = "int";
 
@@ -57,19 +58,21 @@ public class TransferActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                if (txt_amount.getText().toString().trim().length() > 0) {
-                   amount = Integer.parseInt(txt_amount.getText().toString());
+                   float getAmount = Float.parseFloat((txt_amount.getText().toString()));
+                   amount = Math.round(getAmount * 100);
+                   // amount = Integer.parseInt(txt_amount.getText().toString());
 
                    if (amount == 0) {
                        btn_pay.setEnabled(false);
                        lbl_amount_check.setVisibility(View.VISIBLE);
                        lbl_amount_check.setText("ERROR, VALUE CAN NOT BE ZERO");
-                   } else if (amount > valueAsInt) {
+                   } else if (amount > (valueAsInt * 100)) {
                        btn_pay.setEnabled(false);
                        lbl_amount_check.setVisibility(View.VISIBLE);
                        lbl_amount_check.setText("ERROR, AMOUNT OUT OF BOUNDS");
                    } else {
                        lbl_amount_check.setVisibility(View.INVISIBLE);
-                       afterSubtraction = valueAsInt - amount;
+                       afterSubtraction = (valueAsInt *100) - amount;
                        btn_pay.setEnabled(true);
                    }
 
@@ -89,7 +92,7 @@ public class TransferActivity extends AppCompatActivity {
                 String timeStamp = new SimpleDateFormat("HH.mm.ss").format(new Date());
                 final Intent sendBack = new Intent();
                 final Bundle bundle = new Bundle();
-                bundle.putInt(MainActivity.TRANSFER_NOWBALANCE, afterSubtraction);
+                bundle.putFloat(MainActivity.TRANSFER_NOWBALANCE, (afterSubtraction / 100));
                 bundle.putString(MainActivity.TRANSFER_AMOUNT, Integer.toString(amount));
                 bundle.putString(MainActivity.TRANSFER_NAME, friend);
                 bundle.putString(MainActivity.TRANSFER_TIME, timeStamp);
