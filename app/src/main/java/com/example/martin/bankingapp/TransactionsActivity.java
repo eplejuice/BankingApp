@@ -33,7 +33,7 @@ public class TransactionsActivity<transactionData> extends AppCompatActivity {
         Bundle bundle = i.getExtras();
         ArrayList<transactionData> transactions = (ArrayList<transactionData>) Objects.requireNonNull(bundle).getParcelableArrayList(ARRAY_LIST);
 
-        ArrayList<String> printOut = new ArrayList<String>();
+        ArrayList<String> printOut = new ArrayList<>();
         assert transactions != null;
         printOut.add(transactions.toString().replace(",", "").replace("[","").replace("]","").trim());
 
