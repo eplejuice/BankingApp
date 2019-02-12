@@ -2,7 +2,6 @@ package com.example.martin.bankingapp;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+// This is the class for the recylceradapter.
+// This is very heavily influenced by a youtube tutorial, and some modified by me to work on this specific app.
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>
 {
 
@@ -58,11 +59,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             itemView.setOnLongClickListener(this);
         }
 
+        // Short click should do nothing.
         @Override
         public void onClick(View v) {
             clickListener.onItemClick(getAdapterPosition(), v);
         }
 
+        //When long clicked a toast should pop up displaying the information about the item clicked.
         @Override
         public boolean onLongClick(View v) {
             clickListener.onItemLongClick(getAdapterPosition(), v);
