@@ -20,7 +20,7 @@ import java.util.Date;
 
 
 public class TransferActivity extends AppCompatActivity {
-    int amount;
+    float amount;
     private float afterSubtraction;
     String friend;
     public static final String RETURN_INT = "int";
@@ -43,7 +43,7 @@ public class TransferActivity extends AppCompatActivity {
         final EditText txt_amount = findViewById(R.id.txt_amount);
 
         final Intent i = getIntent();
-        final int valueAsInt = i.getIntExtra(MainActivity.TRANSFER_OBJECT, 0);
+        final float valueAsInt = i.getFloatExtra(MainActivity.TRANSFER_OBJECT, 0);
 
 
         txt_amount.addTextChangedListener(new TextWatcher() {
@@ -93,7 +93,7 @@ public class TransferActivity extends AppCompatActivity {
                 final Intent sendBack = new Intent();
                 final Bundle bundle = new Bundle();
                 bundle.putFloat(MainActivity.TRANSFER_NOWBALANCE, (afterSubtraction / 100));
-                bundle.putString(MainActivity.TRANSFER_AMOUNT, Integer.toString(amount));
+                bundle.putString(MainActivity.TRANSFER_AMOUNT, Float.toString(amount / 100));
                 bundle.putString(MainActivity.TRANSFER_NAME, friend);
                 bundle.putString(MainActivity.TRANSFER_TIME, timeStamp);
                 sendBack.putExtras(bundle);

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final Intent startTransfer = new Intent(MainActivity.this, TransferActivity.class);
-                final int balance = Integer.parseInt(lbl_balance.getText().toString());
+                final float balance = Float.parseFloat(lbl_balance.getText().toString());
                 startTransfer.putExtra(TRANSFER_OBJECT, balance);
                 startActivityForResult(startTransfer, RESULT_CODE_TRANSFER);
 
@@ -65,11 +65,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RESULT_CODE_TRANSFER) {
-            if (resultCode == RESULT_OK) { // user has not pressed Back Button
+            if (resultCode == RESULT_OK) {
                 final float i = data.getFloatExtra(TRANSFER_NOWBALANCE, 0);
                 lbl_balance.setText(Float.toString(i));
 
-                transactionData t = new transactionData(data.getStringExtra(TRANSFER_TIME), data.getStringExtra(TRANSFER_NAME), data.getStringExtra(TRANSFER_AMOUNT), Float.toString(i));
+                transactionData t = new transactionData(data.getStringExtra(TRANSFER_TIME), data.getStringExtra(TRANSFER_NAME), data.getStringExtra(TRANSFER_AMOUNT ), Float.toString(i));
                 transactions.add(t);
             }
         }
