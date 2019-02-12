@@ -2,6 +2,7 @@ package com.example.martin.bankingapp;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder  viewHolder, int i) {
+    public void onBindViewHolder(@NonNull MyViewHolder  viewHolder, int i) {
        viewHolder.name.setText(list.get(i));
     }
 

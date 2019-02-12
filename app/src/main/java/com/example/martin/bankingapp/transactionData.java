@@ -2,7 +2,6 @@ package com.example.martin.bankingapp;
 
 import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import java.io.Serializable;
 
@@ -14,7 +13,7 @@ public class transactionData extends AppCompatActivity implements Serializable {
 
     @Override
     public String toString() {
-        return time  + "     |     "   + name + "     |     " +  amount + "     |     " + nowBalance + "\n\n\n";
+        return time  + "     |     "   + name + "     |     " +  amount + "     |     " + nowBalance;
     }
 
     public String nowBalance;

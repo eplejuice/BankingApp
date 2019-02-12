@@ -2,6 +2,7 @@ package com.example.martin.bankingapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.FontRequest;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,8 +36,10 @@ public class TransactionsActivity<transactionData> extends AppCompatActivity {
 
         ArrayList<String> printOut = new ArrayList<>();
         assert transactions != null;
-        printOut.add(transactions.toString().replace(",", "").replace("[","").replace("]","").trim());
 
+        for (int j = 0; j < transactions.size(); j++) {
+            printOut.add(transactions.get(j).toString().replace(",", "").replace("[", "").replace("]", "").trim());
+        }
         adapter = new RecyclerAdapter(printOut);
 
         adapter.setOnItemClickListener(new RecyclerAdapter.ClickListener() {
